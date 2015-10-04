@@ -5,6 +5,7 @@ import os
 from flask import Flask, abort, jsonify, request
 from icalendar import Calendar
 from urllib import urlopen
+import time
 
 app = Flask(__name__)
 
@@ -33,7 +34,13 @@ def convert_from_url(url):
 
         comp_obj = {}
         for item in component.items():
-            comp_obj[item[0]] = unicode(item[1])
+            name = item[0]
+            value = item[1]
+            if name.startswith('DT') or name == 'CREATED' or name == 'LAST-MODIFIED':
+                comp_obj[name] = time.mktime(value.dt.timetuple())
+            else:
+                comp_obj[name] = unicode(value)
+
 
         data[cal.name][component.name].append(comp_obj)
 

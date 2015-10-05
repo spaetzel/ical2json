@@ -3,7 +3,6 @@ ical2json
 
 This is a super simple webservice that consumes iCal data (.ics file) that is publicly available at an HTTP URL and returns JSON data.
 
-
 Installation
 ------------
 
